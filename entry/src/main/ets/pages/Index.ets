@@ -1,8 +1,11 @@
+import { Find } from './find/Find'
+import { Home } from './home/Home'
+import { Mine } from './mine/Mine'
+import Order from './order/Order'
+
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World'
-
   build() {
     Column() {
       // Card({ content: imageBuilder })
@@ -22,7 +25,7 @@ struct Index {
       tabsTest()
     }
     .width('100%').height('100%')
-    .backgroundColor('#F1F1F1')
+    // .backgroundColor('#F1F1F1')
   }
 }
 
@@ -40,10 +43,10 @@ struct tabsTest {
         .size({ width: 25, height: 25 })
       Text(title)
         .fontColor(this.currentIndex === targetIndex ? '#28bff1' : '#8a8a8a')
+
     }
     .width('100%')
     .height(66)
-    .backgroundColor()
     .justifyContent(FlexAlign.Center)
     .onClick(() => {
       this.currentIndex = targetIndex
@@ -53,69 +56,29 @@ struct tabsTest {
 
   build() {
     Column() {
-      Tabs({ barPosition: BarPosition.End }) {
+      Tabs({ barPosition: BarPosition.End, controller: this.controller }) {
         TabContent() {
-          Column() {
-            Text("首页").topBarStyle()
-            Text("首页").width('100%').height('100%').textAlign(TextAlign.Center).fontSize("25fp")
-          }.globalWH()
+          Home()
         }
         .tabBar(this.TabBuilder('首页', 0, $r('app.media.pdj_welfare_selected'), $r('app.media.pdj_welfare_default')))
 
         TabContent() {
-          Column() {
-            Text("列表").topBarStyle()
-            Text("列表").width('100%').height('100%').textAlign(TextAlign.Center).fontSize("25fp")
-          }.globalWH()
+          Find()
         }
         .tabBar(this.TabBuilder('发现', 1, $r('app.media.pdj_find_selected'), $r('app.media.pdj_find_default')))
 
         TabContent() {
-          Column() {
-            Text("列表").topBarStyle()
-            Text("列表").width('100%').height('100%').textAlign(TextAlign.Center).fontSize("25fp")
-          }.globalWH()
+          Order()
         }
         .tabBar(this.TabBuilder('订单', 2, $r('app.media.pdj_order_selected'), $r('app.media.pdj_order_default')))
 
         TabContent() {
-          Column() {
-            Text("我的").topBarStyle()
-            Text("我的").width('100%').height('100%').textAlign(TextAlign.Center).fontSize("25fp")
-          }.globalWH()
+          Mine()
         }
         .tabBar(this.TabBuilder('我的', 3, $r('app.media.pdj_my_selected'), $r('app.media.pdj_find_default')))
       }
-    }.width('100%').height('100%')
+    }.width('100%').height('100%').backgroundColor('#F1F3F5')
   }
-}
-
-@Extend(Column) function globalWH() {
-  .size({ width: '100%', height: '100%' })
-}
-
-@Extend(Text) function topBarStyle() {
-  .size({ width: '100%', height: "60" })
-  .fontColor(Color.White)
-  .backgroundColor("#28bff1")
-  .textAlign(TextAlign.Center)
-  .fontSize("22")
-}
-
-
-@Builder  function TabBuilder(title: string, targetIndex: number, selectedImg: Resource, normalImg: Resource) {
-  Column() {
-    Image(this.currentIndex === targetIndex ? selectedImg : normalImg)
-      .size({ width: 25, height: 25 })
-    Text(title)
-      .fontColor(this.currentIndex === targetIndex ? '#28bff1' : '#8a8a8a')
-  }.width('100%')
-  .height(66)
-  .justifyContent(FlexAlign.Center)
-  .onClick(() => {
-    this.currentIndex = targetIndex
-    this.c
-  })
 }
 
 @Component

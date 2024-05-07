@@ -1,5 +1,9 @@
 {
   "src": [
-    "pages/Index"
+    "pages/Index",
+    "pages/home/Home",
+    "pages/find/Find",
+    "pages/mine/Mine",
+    "pages/order/Order"
   ]
 }
